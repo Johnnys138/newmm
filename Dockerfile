@@ -3,7 +3,7 @@ FROM python:3.13.2-slim
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE="1"
 ENV PYTHONUNBUFFERED="1"
-ENV PORT="7860"
+ENV PORT="8888"
 
 # Set work directory
 WORKDIR /mediaflow_proxy
@@ -32,7 +32,7 @@ RUN poetry config virtualenvs.in-project true \
 COPY --chown=mediaflow_proxy:mediaflow_proxy . /mediaflow_proxy
 
 # Expose the port the app runs on
-EXPOSE 7860
+EXPOSE 8888
 
 # Activate virtual environment and run the application with Gunicorn
 CMD ["poetry", "run", "gunicorn", "mediaflow_proxy.main:app", "-w", "6", "-k", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:8888", "--timeout", "120", "--max-requests", "0", "--max-requests-jitter", "0", "--access-logfile", "-", "--error-logfile", "-", "--log-level", "info"]
