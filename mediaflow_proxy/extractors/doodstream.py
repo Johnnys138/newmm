@@ -153,9 +153,7 @@ class DoodStreamExtractor(BaseExtractor):
         base_url = f"https://{urlparse(final_url).netloc}"
 
         # Some pages embed a JS redirect instead of a real HTTP redirect.
-        js_redirect = re.search(
-            r'(?:window\.location|location\.href)\s*=\s*[\'"]https?://([^/\'"]+)', html
-        )
+        js_redirect = re.search(r'(?:window\.location|location\.href)\s*=\s*[\'"]https?://([^/\'"]+)', html)
         if js_redirect:
             redirected_host = js_redirect.group(1)
             redirect_url = f"https://{redirected_host}/e/{video_id}"
